@@ -1,3 +1,4 @@
+#required package
 requests
 python-dotenv
 duckdb
