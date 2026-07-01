@@ -1,0 +1,37 @@
+name: Deploy Data Pipeline to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # আপনার নির্দিষ্ট করা ডিরেক্টরিতে প্রবেশ
+            cd /root/mostafizemon/tech-job-pipeline
+
+            # নতুন কোড গিটহাব থেকে পুল করা
+            git pull origin main
+
+            # ভার্চুয়াল এনভায়রনমেন্ট চালু করে লাইব্রেরি আপডেট করা
+            source venv/bin/activate
+            pip install -r requirements.txt
+
+            # dbt ফোল্ডারে ঢুকে ডিপেন্ডেন্সি আপডেট করা
+            cd transform_jobs
+            dbt deps
+
+            echo "Deployment Successful!"
