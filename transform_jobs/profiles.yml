@@ -1,0 +1,6 @@
+transform_jobs:
+  outputs:
+    dev:
+      type: duckdb
+      path: "md:job_market_db"
+  target: dev
