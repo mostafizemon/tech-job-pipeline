@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: job_market
+    schema: main
+    tables:
+      - name: bronze_jobs
