@@ -22,7 +22,7 @@ def fetch_job_data():
     print("Starting data ingestion from Adzuna API...")
 
     while True:
-        time.sleep(1) # Add a 1-second delay to avoid 503 Service Unavailable errors
+        time.sleep(1) 
         url = f'https://api.adzuna.com/v1/api/jobs/{country}/search/{page}'
         
         params = {
